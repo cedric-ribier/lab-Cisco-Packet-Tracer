@@ -36,7 +36,7 @@ Sw1(config)#
 
 ```Sw1(config)# ip domain-name lab-tssr.local # Personnalisée le domaine```
 
-## Désactiver la recherche DNS “Domain Name System”,”Système de Noms de Domaine”
+## Désactiver la recherche DNS “Domain Name System”, ”Système de Noms de Domaine”
 
 ```Sw1(config)# no ip domain-lookup```
 

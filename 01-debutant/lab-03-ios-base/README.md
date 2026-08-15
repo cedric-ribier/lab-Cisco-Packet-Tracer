@@ -139,7 +139,6 @@ show version
 | Fichier | Description |
 |---------|-------------|
 | `lab-03-ios-base.pka` | Fichier activité Packet Tracer |
-| `instructions.html` | Énoncé à coller dans le Plain Editor |
 
 ---
 

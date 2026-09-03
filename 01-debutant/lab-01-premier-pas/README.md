@@ -91,7 +91,7 @@ ping 192.168.1.2
 
 - [ ] Les deux PCs sont câblés au switch (voyants verts)
 - [ ] Chaque PC a une annotation avec son adresse IP
-- [ ] PC0 entouré d'une forme rouge, PC1 d'une forme bleue
+- [ ] PC0 entouré d'une forme **bleue**, PC1 d'une forme **orange**
 - [ ] Ping PC0 → PC1 : **succès** (4/4 réponses)
 - [ ] Ping PC1 → PC0 : **succès** (4/4 réponses)
 

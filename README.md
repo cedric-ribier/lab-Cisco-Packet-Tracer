@@ -63,7 +63,7 @@ lab-Cisco-Packet-Tracer/
 
 | Lab | Titre | Thèmes | Durée |
 |-----|-------|--------|-------|
-| [L-17](03-avance/lab-17-ospf-multi/) | OSPF multi-area | ABR, summarization, inter-area | 45 min |
+| [L-17](03-avance/lab-17-ospf-multi/) | OSPF multi-area | ABR, summarization, redondance backbone | 45 min |
 | [L-18](03-avance/lab-18-hsrp/) | HSRP & redondance | HSRP, failover, preempt | 45 min |
 | [L-19](03-avance/lab-19-securite-switch/) | Sécurité switch | Port-security, DHCP snooping, DAI | 45 min |
 | [L-20](03-avance/lab-20-vpn-ipsec/) | VPN site-à-site IPsec | IKEv1, crypto map, tunnel | 60 min |

@@ -18,7 +18,7 @@ précédents et doivent être réalisés **dans l'ordre**.
 
 | Lab | Titre | Thèmes principaux | Durée | Prérequis |
 |-----|-------|-------------------|-------|-----------|
-| [L-17](lab-17-ospf-multi/) | OSPF multi-area | ABR, summarization, inter-area | 45 min | L-13 |
+| [L-17](lab-17-ospf-multi/) | OSPF multi-area | ABR, summarization, redondance backbone | 45 min | L-13 |
 | [L-18](lab-18-hsrp/) | HSRP & redondance passerelle | HSRP, failover, preempt | 45 min | L-11 · L-13 |
 | [L-19](lab-19-securite-switch/) | Sécurité switch | Port-security, DHCP snooping, DAI | 45 min | L-10 · L-12 |
 | [L-20](lab-20-vpn-ipsec/) | VPN site-à-site IPsec | IKEv1, crypto map, tunnel | 60 min | L-16 |
@@ -34,6 +34,7 @@ précédents et doivent être réalisés **dans l'ordre**.
 - Comprendre les routes inter-area (O IA) dans la table de routage
 - Réduire la taille de la LSDB par area
 - Configurer le résumé de routes sur un ABR
+- Observer la tolérance aux pannes grâce à un lien redondant sur le backbone
 
 ### L-18 — HSRP & redondance passerelle
 - Configurer deux routeurs en HSRP avec une IP virtuelle par VLAN

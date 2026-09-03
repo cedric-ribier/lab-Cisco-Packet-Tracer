@@ -83,8 +83,8 @@ lab-Cisco-Packet-Tracer/
 
 ```
 lab-XX-nom/
-├── README.md              # Objectifs, prérequis, topologie, commandes de vérification
-├── instructions.html      # Énoncé à coller dans le Plain Editor du Activity Wizard
+├── README.md              # Corrigé complet : objectifs, prérequis, topologie, commandes de vérification
+├── instructions.html      # Énoncé à coller dans le Plain Editor du Activity Wizard (local, non versionné — voir .gitignore)
 └── lab-XX-nom.pka         # Fichier Packet Tracer Activity (apprenant)
 ```
 

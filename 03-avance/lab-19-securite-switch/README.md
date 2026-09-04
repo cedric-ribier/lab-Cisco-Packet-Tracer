@@ -72,6 +72,15 @@ l'usurpation ARP — sans casser le DHCP centralisé mis en place en L-12.
 - Switch3 : Fa0/2-3, Fa0/6-21, Gi0/2
 - Switch4 : Fa0/3-5, Fa0/7-22, Gi0/2
 
+> Switch4 Fa0/3 porte une config résiduelle (`access vlan 30`, `portfast`,  
+> sans `bpduguard`) — rien n'y est branché. L'étape 6 (ports inutilisés)  
+> la nettoie au passage en la basculant sur la VLAN poubelle.
+>
+> Multilayer Switch0 a aussi un `Gi0/1` en trunk vers **Router0** — reliquat  
+> du ROAS (L-08), jamais retiré côté switch même si Router0 ne route plus  
+> depuis L-11. Il n'entre pas dans le plan de sécurisation : Router0 ne  
+> participe à aucun flux DHCP depuis la suppression de ses pools en L-12.
+
 ---
 
 ## 📋 Plan de sécurisation
@@ -365,6 +374,7 @@ le réseau de production — c'est exactement le scénario simulé avec Server-R
 | `initial-config/Switch3.txt` | État hérité de L-07/L-09/L-10 (local, non versionné) |
 | `initial-config/Switch4.txt` | État hérité de L-07/L-09/L-10 (local, non versionné) |
 | `initial-config/Multilayer-Switch0.txt` | État hérité de L-07/L-09/L-11/L-12 (local, non versionné) |
+| `answer-config/Switch2.txt`, `Switch3.txt`, `Switch4.txt`, `Multilayer-Switch0.txt` | État final attendu — durcissement L-19 inclus (local, non versionné) |
 
 ---
 

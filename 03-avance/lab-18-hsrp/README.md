@@ -6,6 +6,11 @@ Mettre en place deux switches L3 en redondance de passerelle avec HSRP,
 répartir la charge entre deux VLANs et observer le basculement automatique  
 en cas de panne du routeur actif.
 
+> Point de départ : VLANs, trunks, EtherChannel de peering (Po1) et adressage  
+> des SVI physiques déjà configurés sur les trois switches — voir  
+> [`initial-config/`](initial-config/) pour les scripts à pousser avant la séance.  
+> Le travail demandé porte uniquement sur HSRP.
+
 ---
 
 ## 🎯 Objectifs
@@ -27,15 +32,11 @@ en cas de panne du routeur actif.
                     [ Switch-Access (trunk) ]
                        /                 \
               [ SW-A ]═══ Po1 (peer-link) ═══[ SW-B ]
-                  |                              |
-                  └──────── OSPF area 0 ─────────┘
-                              |
-                         [ Router-ISP ]
 ```
 
-> SW-A et SW-B sont deux switches L3 (3560) reliés à l'access switch en trunk  
-> et reliés entre eux par un lien direct pour le trafic inter-VLAN et OSPF.  
-> Point de départ : SVIs (L-11) et OSPF (L-13) déjà fonctionnels sur les deux switches.
+> SW-A et SW-B sont deux switches L3 (3560) reliés à Switch-Access en trunk  
+> et reliés entre eux par un EtherChannel (Po1) qui sert de raccourci pour  
+> le trafic inter-VLAN entre les deux switches de distribution.
 
 ---
 
@@ -65,36 +66,11 @@ en cas de panne du routeur actif.
 
 ## 📝 Travail demandé
 
-### Étape 1 — Adresser les SVIs physiques
+> Chaque switch a déjà une IP physique distincte sur chaque SVI (voir plan  
+> d'adressage) — l'IP HSRP vient s'ajouter par-dessus, elle n'est pas l'IP  
+> de l'interface.
 
-Sur **SW-A** :
-```
-configure terminal
-interface vlan 10
- ip address 172.16.10.252 255.255.255.0
- no shutdown
-interface vlan 20
- ip address 172.16.20.252 255.255.255.0
- no shutdown
-end
-```
-
-Sur **SW-B** :
-```
-configure terminal
-interface vlan 10
- ip address 172.16.10.253 255.255.255.0
- no shutdown
-interface vlan 20
- ip address 172.16.20.253 255.255.255.0
- no shutdown
-end
-```
-
-> Chaque switch garde une IP physique distincte sur chaque SVI — l'IP HSRP  
-> vient s'ajouter par-dessus, elle n'est pas l'IP de l'interface.
-
-### Étape 2 — HSRP groupe 1 (VLAN 10) — SW-A actif
+### Étape 1 — HSRP groupe 1 (VLAN 10) — SW-A actif
 
 Sur **SW-A** :
 ```
@@ -116,7 +92,7 @@ end
 
 > Sans `priority`, SW-B reste à la valeur par défaut (100) — donc standby.
 
-### Étape 3 — HSRP groupe 2 (VLAN 20) — SW-B actif
+### Étape 2 — HSRP groupe 2 (VLAN 20) — SW-B actif
 
 Sur **SW-B** :
 ```
@@ -136,12 +112,12 @@ interface vlan 20
 end
 ```
 
-### Étape 4 — Configurer les passerelles des PCs
+### Étape 3 — Configurer les passerelles des PCs
 
 - PC0 (VLAN10) → passerelle `172.16.10.254`
 - PC1 (VLAN20) → passerelle `172.16.20.254`
 
-### Étape 5 — Vérifier l'état HSRP
+### Étape 4 — Vérifier l'état HSRP
 
 ```
 show standby brief
@@ -153,7 +129,7 @@ Vl10        1    110  P Active   local           172.16.10.253   172.16.10.254
 Vl20        2    100    Standby  172.16.20.253   local           172.16.20.254
 ```
 
-### Étape 6 — Simuler la panne du routeur actif
+### Étape 5 — Simuler la panne du routeur actif
 
 Dans PT, débranche le câble reliant **SW-A** au reste du réseau (ou fais  
 `shutdown` sur `interface vlan 10` de SW-A).
@@ -171,7 +147,7 @@ ping 172.16.20.1    → succès sans interruption prolongée (bascule transparen
 
 Reconnecte SW-A. Grâce à `preempt`, SW-A redevient actif car sa priority (110) est supérieure.
 
-### Étape 7 — Sauvegarder
+### Étape 6 — Sauvegarder
 
 ```
 copy running-config startup-config
@@ -246,6 +222,11 @@ VLANs sur les deux liens montants au lieu de tout faire passer par un seul switc
 | Fichier | Description |
 |---------|--------------|
 | `lab-18-hsrp.pka` | Fichier activité Packet Tracer |
+| `initial-config/SW-A.txt` | Config de départ à pousser sur SW-A avant la séance (local, non versionné) |
+| `initial-config/SW-B.txt` | Config de départ à pousser sur SW-B avant la séance (local, non versionné) |
+| `initial-config/Switch-Access.txt` | Config de départ à pousser sur Switch-Access avant la séance (local, non versionné) |
+| `answer-config/SW-A.txt` | Config finale attendue (corrigé) pour SW-A — HSRP inclus (local, non versionné) |
+| `answer-config/SW-B.txt` | Config finale attendue (corrigé) pour SW-B — HSRP inclus (local, non versionné) |
 
 ---
 
